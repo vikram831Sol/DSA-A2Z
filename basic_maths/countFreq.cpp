@@ -8,7 +8,7 @@ using namespace std;
 //         {
 //             int index=(nums[i]%10+10)%10;//for handling both negative and positive integers
 //             bool found=false;
-//             //updating frequency if number already found earlier inside the nums array
+//             //updating frequency if number already found earlier inside the table array
 //             for(auto &p:table[index])
 //             {
 //                 if(p.first==nums[i]){
