@@ -11,6 +11,17 @@ vector<int> selectionSort(vector<int>& nums) {
             }
         }
         swap(nums[i], nums[min]);
+        
+        // int min=INT_MAX;//we cannot do that because when we swap nums[i] and min nums[i]
+        //is getting the swapped with min which is a local variable and not from the array itself
+        //resulting in distorted output
+        // for(int j=i; j<nums.size(); j++){
+        //     if(nums[j]<min){
+        //         min=nums[j];
+        // swap(nums[i], nums[min]);//this line should be outside the nested for loop as 
+        //we do swapping after the min is found through whole array from j to n-1;
+        //     }
+        // }
     }
     return nums;
     }
