@@ -92,6 +92,42 @@ Hence:
 ALGORITHM:
 */
 
+/*
+IDEA → CODE DERIVATION
+
+Goal:
+Move all non-zeroes to front while maintaining order.
+
+Observation:
+Whenever we find a non-zero element,
+we need to know where to place it.
+
+So:
+j = next position where non-zero should go
+
+Initially:
+j = 0
+because first non-zero should go at index 0.
+
+Now scan the array using i.
+
+If nums[i] == 0:
+-> ignore it
+
+If nums[i] != 0:
+-> place it at correct position j
+-> swap(nums[i], nums[j])
+
+After placement:
+-> next non-zero should go ahead
+-> j++
+
+Thus:
+- indices before j contain correctly placed non-zeroes
+- i scans array
+- j tracks next free position for non-zero
+*/
+
 void moveZeroes(vector<int>& nums) {
 
     int j = 0;
