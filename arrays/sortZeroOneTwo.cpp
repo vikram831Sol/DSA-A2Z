@@ -38,7 +38,7 @@ using namespace std;
 void sortZeroOneTwo(vector<int>& nums){
     int low=0, high=nums.size()-1;
     int mid=0;
-    while (mid<=high)
+    while (mid<=high)//equal to condition is important
     {
         if (nums[mid]==0)
         {
