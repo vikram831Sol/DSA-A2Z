@@ -51,17 +51,18 @@ void nextPermutation(vector<int>& nums){
     int l=nums.size()-1;
     while (k>0)
     {
-        if (nums[k]>nums[k-1])
+        if (nums[k]>nums[k-1])//finding the breaking point
         {
             bPoint=k-1;break;
         }
         else{k--;}
     }
-    if (bPoint==-1)
+    if (bPoint==-1)//if no breaking point found that means the array is already the greatest
+    //permutation so return the smallest possible by reversing the array
     {
         reverse(nums, 0, nums.size()-1);
     }
-    else{
+    else{//if not find the first greater number from right to swap with bPoint number
         while(l>bPoint){
             if (nums[l]>nums[bPoint])
             {
@@ -70,7 +71,8 @@ void nextPermutation(vector<int>& nums){
             }
             else{l--;}
         }
-        reverse(nums, bPoint+1, nums.size()-1);
+        reverse(nums, bPoint+1, nums.size()-1);//once swapping is done we reverse
+        //whole array to get the first greater number 
     }
 }
 
