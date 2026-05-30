@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//brute force
+//brute force O(n^3)
 // bool linearSearch(vector<int>&nums, int target){
 //     for (int i = 0; i < nums.size(); i++)
 //     {
@@ -21,8 +21,9 @@ using namespace std;
 //     {
 //         cnt=1;
 //         int x=nums[i];
-//         while(linearSearch(nums, x+1)==true){//contributes total of n^2 operations
-//             x+=1;
+//         while(linearSearch(nums, x+1)==true){//contributes total of n operations
+//             x+=1;//for each of while search it updates so n^2 and 
+//              //while runs for each outer for loop i so n^3
 //             cnt+=1;
 //         }
 //         max_cnt=max(max_cnt, cnt);
