@@ -1,99 +1,74 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//brute force
-// bool linearSearch(vector<int>&nums, int target){
-//     for (int i = 0; i < nums.size(); i++)
-//     {
-//         if (nums[i]==target)
-//         {
-//             return true;
-//         }
-        
-//     }
-//     return false;
-// }
-
-// int longestConsecutive(vector<int>& nums){
-//     int cnt=1;
-//     int max_cnt=1;
-//     for (int i = 0; i < nums.size(); i++)
-//     {
-//         cnt=1;
-//         int x=nums[i];
-//         while(linearSearch(nums, x+1)==true){//contributes total of n^2 operations
-//             x+=1;
-//             cnt+=1;
-//         }
-//         max_cnt=max(max_cnt, cnt);
-//     }
-//     return max_cnt;
-// }
-
-//better approach
-// int longestConsecutive(vector<int>& nums) {
-//     sort(nums.begin(), nums.end());
-//      int i=0;
-//      int count=1;
-//      int max_count=1;
-//      while (i<nums.size()-1)
-//      {
-//         if (nums[i+1]==nums[i]+1)
-//         {
-//             i++;count++;if(count>max_count){max_count=count;}
-//         }
-//         else
-//         {
-//             count=1;i++;
-//         }
-        
-//      }
-//         return max_count;
-//     }
-
-//Optimal approach
-int longestConsecutive(vector<int>& nums){
-    unordered_set<int> st;
-    for (int i = 0; i < nums.size(); i++)
+void setZeroes(vector<vector<int>>& matrix){
+    int m=matrix.size();
+    int n=matrix[0].size();
+    int col0=1;
+    for (int i = 0; i < m; i++)
     {
-        st.insert(nums[i]);
-    }//o(n)
-    int cnt=1;
-    int max_cnt=1;
-    for (auto it:st)
-    {
-        
-        if (st.find(it-1)==st.end())//previous elemet not found so new starting for checking of 
-        //sequence
+        if (matrix[i][0]==0)
         {
-            cnt=1;
-            int x=it;
-            while (st.find(x+1)!=st.end())//it will give total of o(1) for one i at average and
-            //total of n for whole while that is n+n=2n, for nested for loops it was
-            //n for one i that is total of n^2
+            col0=0;
+        }
+        
+        for (int j = 1; j < n; j++)
+        {
+            if (matrix[i][j]==0)
             {
-                x=x+1;cnt++;
+                matrix[i][0]=0;//in this col zero was found
+                matrix[0][j]=0;//in this row zero was found
             }
             
         }
         
-        max_cnt=max(max_cnt, cnt);
+    }
+
+    for (int i = m-1; i >=0; i--)
+    {
+        for (int j = n-1; j>=1; j--)
+        {
+            if (matrix[i][0]==0 || matrix[0][j] == 0)
+            {
+                matrix[i][j]=0;
+            }
+            
+        }
+        if (col0==0)
+        {
+            matrix[i][0]=0;
+        }
+        
         
     }
-    return max_cnt;
+    
     
 }
 
 int main()
 {
-    int size;
-    cin>>size;
-    vector<int> nums(size);
-    for (int i = 0; i < size; i++)
+    int m, n;
+    cin>>m>>n;
+    vector<vector<int>> matrix(m, vector<int>(n));
+    for (int i = 0; i < m; i++)
     {
-        cin>>nums[i];
+        for (int j = 0; j < n; j++)
+        {
+            cin>>matrix[i][j];
+        }
+        
     }
-    int r=longestConsecutive(nums);
-    cout << r << "\n";
+
+    setZeroes(matrix);
+    
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << matrix[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
     return 0;
 }
