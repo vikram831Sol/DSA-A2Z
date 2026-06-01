@@ -1,74 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void setZeroes(vector<vector<int>>& matrix){
-    int m=matrix.size();
-    int n=matrix[0].size();
-    int col0=1;
-    for (int i = 0; i < m; i++)
-    {
-        if (matrix[i][0]==0)
-        {
-            col0=0;
+void spiralOrder(vector<vector<int>>& matrix) {
+    vector<int> result;
+    int m = matrix.size();
+    int n = matrix[0].size();
+    int left = 0, right = n - 1;
+    int top = 0, bottom = m - 1;
+    while (left <= right && top <= bottom) {
+        for (int i = left; i <= right; i++) {
+            result.push_back(matrix[top][i]);
         }
-        
-        for (int j = 1; j < n; j++)
-        {
-            if (matrix[i][j]==0)
-            {
-                matrix[i][0]=0;//in this col zero was found
-                matrix[0][j]=0;//in this row zero was found
-            }
-            
-        }
-        
-    }
+        top++;
 
-    for (int i = m-1; i >=0; i--)
-    {
-        for (int j = n-1; j>=1; j--)
-        {
-            if (matrix[i][0]==0 || matrix[0][j] == 0)
-            {
-                matrix[i][j]=0;
+        for (int i = top; i <= bottom; i++) {
+            result.push_back(matrix[i][right]);
+        }
+        right--;
+        if (top <= bottom) {//equals to condition because one row may still be left for equals to
+            for (int i = right; i >= left; i--) {
+                result.push_back(matrix[bottom][i]);
             }
-            
+            bottom--;
         }
-        if (col0==0)
-        {
-            matrix[i][0]=0;
+        if (left <= right) {//condition to check whether still unvisited column exists or not
+            for (int i = bottom; i >= top; i--) {
+                result.push_back(matrix[i][left]);
+            }
+            left++;
         }
-        
-        
     }
-    
-    
 }
 
-int main()
-{
-    int m, n;
-    cin>>m>>n;
-    vector<vector<int>> matrix(m, vector<int>(n));
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            cin>>matrix[i][j];
-        }
-        
-    }
-
-    setZeroes(matrix);
-    
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            cout << matrix[i][j] << " ";
-        }
-        cout << "\n";
-    }
-
-    return 0;
-}
+int main() { return 0; }
