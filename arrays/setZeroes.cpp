@@ -110,15 +110,15 @@ void setZeroes(vector<vector<int>>& matrix){
         for (int j = 1; j < n; j++)//why j begin from 1 adn not zero
         {
             if (matrix[i][j]==0)
-            {
-                matrix[i][0]=0;
-                matrix[0][j]=0;
+            {//do not forget writting this condition
+                matrix[i][0]=0;//stores position of rows which contain zero in column zeroth
+                matrix[0][j]=0;//stores position of column containing zero in zeroth row
             }
             
         }
         
     }
-
+    //start filling rows and columns with zeros which contains atleast on zero from bottom right
     for (int i = m-1; i >=0; i--)
     {
         for (int j = n-1; j >= 1; j--)
