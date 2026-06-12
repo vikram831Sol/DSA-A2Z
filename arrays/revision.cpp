@@ -1,46 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> threeSum(vector<int>& nums) {
-    sort(nums.begin(), nums.end());
-    vector<vector<int>> solution;
-    for (int i = 0; i < nums.size(); i++){
-        if((i>0)&&nums[i]==nums[i-1])continue;
-        int j = i + 1;
-        int k = nums.size() - 1;
-        while (j < k) {
-            int sum = nums[i] + nums[j] + nums[k];
-            if (sum == 0) {
-                solution.push_back({nums[i], nums[j], nums[k]});j++;k--;
-                while ((j<k)&&(nums[j] == nums[j - 1])) {
-                    j++;
-                }
-                while ((j<k)&&(nums[k - 1] == nums[k])) {
-                    k--;
-                }
-            } else if (sum < 0) {
-                j++;
-            } else {
-                k--;
-            }
+int maxLen(vector<int>& nums){
+    int maxLen=0;
+    int ps=0;
+    unordered_map<int, int> mp;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        ps+=nums[i];
+        if (ps==0)
+        {
+            maxLen=max(maxLen, i+1);
         }
+        if (mp.find(ps)!=mp.end())
+        {
+            maxLen=max(maxLen, i-mp[ps]);
+        }
+        else{
+            mp[ps]=i;
+        }
+        
     }
-    return solution;
+    return maxLen;
 }
 
 int main() {
-    int size;
-    cin >>size;
+    int size, k;
+    cin>>size>>k;
     vector<int> nums(size);
-    for (int i = 0; i < size; i++) {
-        cin >> nums[i];
+    for (int i = 0; i < size; i++)
+    {
+        cin>>nums[i];
     }
-    vector<vector<int>> result = threeSum(nums);
-    for (int i = 0; i < result.size(); i++) {
-        for (int j = 0; j < result[i].size(); j++) {
-            cout << result[i][j] << " ";
-        }
-        cout << "\n";
-    }
+
+    int d=maxLen(nums);
+    cout << d << endl;
     return 0;
 }
