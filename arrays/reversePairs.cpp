@@ -19,9 +19,12 @@ using namespace std;
 //         return cnt;
 //     }
 
-int cnt = 0;
 
-void cntPairs(vector<int>& nums, int low, int mid, int high){
+//optimal approach for time complexity logn is from division and for each merge it is n and for 
+//each cnt pairs funciton it is n so O(2nlogn) and space complexity O(n)
+//and it is important to tell interviewer that we are distorting the array
+int cntPairs(vector<int>& nums, int low, int mid, int high){
+    int cnt=0;
     int right=mid+1;
     for(int i=low; i <= mid; i++)
     {
@@ -31,7 +34,7 @@ void cntPairs(vector<int>& nums, int low, int mid, int high){
         }
         cnt+=(right-(mid+1));
     }
-    
+    return cnt;
 }
 
 void merge(vector<int>& nums, int low, int mid, int high) {
@@ -59,20 +62,33 @@ void merge(vector<int>& nums, int low, int mid, int high) {
     }
 }
 
-void mergeSort(vector<int>& nums, int low, int high) {
+// void mergeSort(vector<int>& nums, int low, int high) {
+//     if (low >= high) {
+//         return;
+//     }
+//     int mid = (low + ((high - low) / 2));
+//     mergeSort(nums, low, mid);
+//     mergeSort(nums, mid + 1, high);
+//     cntPairs(nums, low, mid, high);
+//     merge(nums, low, mid, high);
+// }instead of this we can avoid use of global count and write as 
+
+int mergeSort(vector<int>& nums, int low, int high) {
+    int cnt=0;
     if (low >= high) {
-        return;
+        return cnt;
     }
     int mid = (low + ((high - low) / 2));
-    mergeSort(nums, low, mid);
-    mergeSort(nums, mid + 1, high);
-    cntPairs(nums, low, mid, high);
+    cnt+=mergeSort(nums, low, mid);//each block will return its count;//that is before counting
+    //for current one count for earlier ones;
+    cnt+=mergeSort(nums, mid + 1, high);
+    cnt+=cntPairs(nums, low, mid, high);
     merge(nums, low, mid, high);
+    return cnt;
 }
 
 int reversePairs(vector<int>& nums) {
-    mergeSort(nums, 0, nums.size() - 1);
-    return cnt;
+    return mergeSort(nums, 0, nums.size() - 1);
 }
 
 int main() {
