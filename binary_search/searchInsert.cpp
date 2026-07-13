@@ -18,38 +18,60 @@ However, it should be inserted at index 1 to maintain the sorted order of the ar
 #include <bits/stdc++.h>
 using namespace std;
 
-int search_Insert(vector<int> &nums, int target, int low, int high){
-    if (low>=high)
-    {
-        if (nums[low]>=target)
-        {
-            return low;
-        }
-        else{
-            return low+1;
-        }
-        
-    }
-    int mid=low+((high-low)/2);
-    if (nums[mid]==target)
-    {
-        return mid;
-    }
-    else if (nums[mid]<target)
-    {
-        return search_Insert(nums, target, mid+1, high);
-    }
-    else{
-        return search_Insert(nums, target, low, mid-1);
-    }
+// int search_Insert(vector<int> &nums, int target, int low, int high){
+//     if (low>high)
+//     {
+//         return low;
+//     }
+//     int mid=low+((high-low)/2);
+//     if (nums[mid]==target)
+//     {
+//         return mid;
+//     }
+//     else if (nums[mid]<target)
+//     {
+//         return search_Insert(nums, target, mid+1, high);
+//     }
+//     else{
+//         return search_Insert(nums, target, low, mid-1);
+//     }
     
-}
+// }
 
-int searchInsert(vector<int> &nums, int target)  {
-        int low=0;
-        int high=nums.size()-1;
-        return search_Insert(nums, target, low, high);
+// int searchInsert(vector<int> &nums, int target)  {
+//         int low=0;
+//         int high=nums.size()-1;
+//         return search_Insert(nums, target, low, high);
+//     }
+//optimal approach
+int searchInsert(vector<int> &nums, int target){
+    int low=0;
+    int high=nums.size()-1;
+    while (low<=high)
+    {
+        int mid=low+((high-low)/2);
+        if (nums[mid]==target)
+        {
+            return mid;
+        }
+        else if (nums[mid]<target)
+        {
+            low=mid+1;
+        }
+        else{high=mid-1;}
     }
+    // if (nums[low]<target)
+    // {
+    //     return low+1;
+    // }
+    // else{return low;}
+    return low;//is sufficient
+    //idea is all the values before low are smaller than target and 
+    //all the values after high are greater than target
+    //now the key is if target exists it will be returned through first if condition
+    //other wise loop will go till low<=high; and when low>high loop stops
+    //at this point high=low-1 exactly that is why returning low works everytime
+}
 
 int main()
 {
