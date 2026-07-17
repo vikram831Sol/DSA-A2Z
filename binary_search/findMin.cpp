@@ -20,6 +20,7 @@ int findMin(vector<int> &arr)  {
       int low=0;
       int high=arr.size()-1;
       int mini=INT_MAX;
+      int mini_ind=0;
       while (low<=high)
       {
         int mid=low+((high-low)/2);
@@ -27,13 +28,15 @@ int findMin(vector<int> &arr)  {
         //arr[low]temporarily for now and later then sort out the search space to unsorted part
         //that is right side.
         {
-            (mini>=arr[low])?mini=arr[low]:mini=mini;
+            mini=min(mini, arr[low]);
+            (mini>=arr[low])?mini_ind=low:mini_ind=mini_ind;
             low=mid+1;
         }
         //if right side is sorted take the min arr[mid]for now and do the searching in
         //unsorted part that is left side.
         else{
-            (mini>=arr[mid])?mini=arr[mid]:mini=mini;
+            mini=min(mini, arr[mid]);
+            (mini>=arr[mid])?mini_ind=mid:mini_ind=mini_ind;
             high=mid-1;
         }
       }
